@@ -14,6 +14,25 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS (CDN for standalone preview on GitHub Pages & static hosting) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+              mono: ['"JetBrains Mono"', 'monospace'],
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Stylesheet (Relative path for GitHub Pages and standalone hosting) -->
+    <link rel="stylesheet" href="./style.css" />
   </head>
   <body class="h-full bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col md:flex-row overflow-hidden font-sans">
     
@@ -1153,6 +1172,19 @@
     <!-- Toast Notification Container -->
     <div id="toast-container" class="fixed top-5 right-5 z-60 space-y-2 pointer-events-none"></div>
 
-    <script type="module" src="/src/main.ts"></script>
+    <!-- Script: Runs /src/main.ts in Vite and falls back to ./script.js for direct static GitHub Pages -->
+    <script type="module" src="./src/main.ts"></script>
+    <script>
+      // Fallback: If Vite is not running (e.g. GitHub Pages or direct file opening), load standalone script.js
+      if (!window.__BUDGETWISE_LOADED__) {
+        window.addEventListener('DOMContentLoaded', () => {
+          if (!window.__BUDGETWISE_LOADED__) {
+            const s = document.createElement('script');
+            s.src = './script.js';
+            document.body.appendChild(s);
+          }
+        });
+      }
+    </script>
   </body>
 </html>
